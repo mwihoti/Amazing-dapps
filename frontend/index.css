@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+    :root {
+        --font-size: 20px;
+        @apply text-foreground;
+        
+    }
+
+    body {
+        background-image: linear-gradient(rgba(178, 209, 201, 0.836), rgb(219, 214, 214));
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    
+}

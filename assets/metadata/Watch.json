@@ -1,0 +1,12 @@
+{
+    "description": "watch 1 in collection",            
+    "image": "",                                     
+    "name": "watch 1",                                 
+    "external_url": "https://your_project_url.io/1", 
+    "attributes": [                                  
+      {
+        "trait_type": "optional_trait",
+        "value": "1"
+      }
+    ]
+  }
