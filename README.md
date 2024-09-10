@@ -12,7 +12,7 @@ Amazing-dappses is a simple dapp infrastructure and a simple wallet info impleme
 - **Trasnfer APT implementation** - `transfer` components to send APT to an address.
 - **Fetch APT Transer** - 
 
-## What tools the template uses?
+## What tools the Amazing-dapps uses?
 
 - React framework
 - Vite development tool
