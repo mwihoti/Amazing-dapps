@@ -16,7 +16,7 @@ export function TransferAPT() {
   const [aptBalance, setAptBalance] = useState<number>(0);
   const [recipient, setRecipient] = useState<string>();
   const [transferAmount, setTransferAmount] = useState<number>();
-
+  const [transactions, setTransactions] = useState<any[]>([]);
   const { data } = useQuery({
     queryKey: ["apt-balance", account?.address],
     refetchInterval: 10_000,
@@ -44,6 +44,18 @@ export function TransferAPT() {
     },
   });
 
+  const fetchTransactions = async () => {
+    if (!account) return;
+
+    try {
+      const response = await aptosClient().getAccountTransactions(account.address);
+      setTransactions(response);
+
+    } catch (error) {
+      console.error("Failed to fetch transactions", error);
+    }
+  }
+
   const onClickButton = async () => {
     if (!account || !recipient || !transferAmount) {
       return;
@@ -65,6 +77,7 @@ export function TransferAPT() {
         title: "Success",
         description: `Transaction succeeded, hash: ${executedTransaction.hash}`,
       });
+      fetchTransactions(); // Fetch transactions after a successfull transfer
     } catch (error) {
       console.error(error);
     }
@@ -73,13 +86,20 @@ export function TransferAPT() {
   useEffect(() => {
     if (data) {
       setAptBalance(data.balance);
+      fetchTransactions();
     }
   }, [data]);
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex gap-6">
+
       <h4 className="text-lg font-medium">APT balance: {aptBalance / Math.pow(10, 8)}</h4>
+     <div>
+
+     
       Recipient <Input disabled={!account} placeholder="0x1" onChange={(e) => setRecipient(e.target.value)} />
+
+      </div>
       Amount{" "}
       <Input disabled={!account} placeholder="100" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
       <Button
@@ -88,6 +108,28 @@ export function TransferAPT() {
       >
         Transfer
       </Button>
+
+   
+     <div className="mt-4">  // Display Transaction
+      <h4 className="text-lg font-medium">Transaction History:</h4>
+      {transactions.length > 0 ? (
+        <ul className="mt-2 space-y-2">
+           {transactions.map((tx, index) => (
+                <li key={index} className="p-2 bg-gray-100 rounded-md">
+                  <span className="font-semibold">Tx Hash:</span>{tx.hash} <br />
+                  <span className="font-semibold">Status:</span>{tx.success ? "Success" : "Failed" } <br />
+                  <span className="font-semibold">TimeStamp:</span>{new Date(tx.timestamp).toLocaleString()};
+                </li>
+              ))}
+              </ul>
+          ) : (
+            <p>No transactions yet</p>
+          )}
+        
+      
+
+
+     </div>
     </div>
   );
 }
