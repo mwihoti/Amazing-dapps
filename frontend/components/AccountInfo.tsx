@@ -19,11 +19,7 @@ export function AccountInfo() {
               <DisplayValue value={account?.publicKey.toString() ?? "Not Present"} isCorrect={!!account?.publicKey} />
             ),
           },
-          {
-            label: "ANS name",
-            subLabel: "(only if attached)",
-            value: <p>{account?.ansName ?? "Not Present"}</p>,
-          },
+          
         ]}
       />
     </div>

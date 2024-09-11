@@ -48,13 +48,18 @@ export function TransferAPT() {
     if (!account) return;
 
     try {
-      const response = await aptosClient().getAccountTransactions(account.address);
-      setTransactions(response);
+      const response = await aptosClient().getAccountTransactions({ accountAddress: account.address });
+      console.log("Transactions", response);
 
+      if (response && Array.isArray(response)) {
+        setTransactions(response);
+      } else {
+        setTransactions([]);
+      }
     } catch (error) {
       console.error("Failed to fetch transactions", error);
     }
-  }
+  };
 
   const onClickButton = async () => {
     if (!account || !recipient || !transferAmount) {
@@ -77,7 +82,11 @@ export function TransferAPT() {
         title: "Success",
         description: `Transaction succeeded, hash: ${executedTransaction.hash}`,
       });
-      fetchTransactions(); // Fetch transactions after a successfull transfer
+      setTransactions((prevTransactions) => [
+        executedTransaction,
+        ...prevTransactions,
+      ])
+      await fetchTransactions(); // Fetch transactions after a successful transfer
     } catch (error) {
       console.error(error);
     }
@@ -91,45 +100,40 @@ export function TransferAPT() {
   }, [data]);
 
   return (
-    <div className="flex gap-6">
-
-      <h4 className="text-lg font-medium">APT balance: {aptBalance / Math.pow(10, 8)}</h4>
-     <div>
-
-     
-      Recipient <Input disabled={!account} placeholder="0x1" onChange={(e) => setRecipient(e.target.value)} />
-
+    <div className="gap-6">
+      <h4 className="text-lg p-10 border m-4 font-medium">APT balance: {aptBalance / Math.pow(10, 8)}</h4>
+      <div>
+        <div className="p-3 flex flex-col">
+          <label htmlFor="recipient">Recipient</label>
+          <Input disabled={!account} placeholder="0x1" onChange={(e) => setRecipient(e.target.value)} />
+          <label htmlFor="amount">Amount</label>
+          <Input disabled={!account} placeholder="100" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
+        </div>
       </div>
-      Amount{" "}
-      <Input disabled={!account} placeholder="100" onChange={(e) => setTransferAmount(parseFloat(e.target.value))} />
       <Button
         disabled={!account || !recipient || !transferAmount || transferAmount > aptBalance || transferAmount <= 0}
-        onClick={onClickButton} className="bg-slate-500 text-black text-lg"
+        onClick={onClickButton}
+        className="bg-teal-400 hover:bg-lime-900 text-black text-lg"
       >
         Transfer
       </Button>
-
-   
-     <div className="mt-4">  // Display Transaction
-      <h4 className="text-lg font-medium">Transaction History:</h4>
-      {transactions.length > 0 ? (
-        <ul className="mt-2 space-y-2">
-           {transactions.map((tx, index) => (
-                <li key={index} className="p-2 bg-gray-100 rounded-md">
-                  <span className="font-semibold">Tx Hash:</span>{tx.hash} <br />
-                  <span className="font-semibold">Status:</span>{tx.success ? "Success" : "Failed" } <br />
-                  <span className="font-semibold">TimeStamp:</span>{new Date(tx.timestamp).toLocaleString()};
-                </li>
-              ))}
-              </ul>
-          ) : (
-            <p>No transactions yet</p>
-          )}
-        
-      
-
-
-     </div>
+      <div className="mt-4">
+        {/* Display Transaction */}
+        <h4 className="text-lg font-medium">Transaction History:</h4>
+        {transactions.length > 0 ? (
+          <ul className="mt-2 space-y-2">
+            {transactions.map((tx, index) => (
+              <li key={index} className="p-2 bg-gray-100 rounded-md">
+                <span className="font-semibold">Tx Hash:</span> {tx.hash ? tx.hash.toString() : "N/A"} <br />
+                <span className="font-semibold">Status:</span> {tx.success ? "Success" : "Failed"} <br />
+                <span className="font-semibold">TimeStamp:</span> {tx.timestamp ? new Date(tx.timestamp / 1000).toLocaleString() : "N/A"}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p>No transactions yet</p>
+        )}
+      </div>
     </div>
   );
 }

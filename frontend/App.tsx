@@ -14,7 +14,7 @@ function App() {
   return (
     <>
       
-      <div className="flex justify-center items-center text-xl flex-col">
+      <div className="min-h-screen flex justify-center items-center text-xl flex-col">
       <Header />
         {connected ? (
           <Card className="p-30  m-8">

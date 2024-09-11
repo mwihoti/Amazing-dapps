@@ -50,7 +50,8 @@ export function WalletSelector() {
   }, [account?.address, toast]);
 
   return connected ? (
-    <DropdownMenu>
+   <div className="p-4">
+    <DropdownMenu >
       <DropdownMenuTrigger asChild>
         <Button>{account?.ansName || truncateAddress(account?.address) || "Unknown"}</Button>
       </DropdownMenuTrigger>
@@ -70,6 +71,7 @@ export function WalletSelector() {
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
+    </div>
   ) : (
     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
       <DialogTrigger asChild>
@@ -77,7 +79,10 @@ export function WalletSelector() {
       </DialogTrigger>
       <ConnectWalletDialog close={closeDialog} />
     </Dialog>
+  
+ 
   );
+
 }
 
 interface ConnectWalletDialogProps {
