@@ -4,7 +4,7 @@ version = "1.0.0"
 authors = []
 
 [addresses]
-message_board_addr = "_"
+nftCollection_addr = "0xbc81658ba0d9ffdd0663433259ce06e5c3af6ccae6fb982cc301adf3cdda3687"
 
 [dependencies]
 AptosFramework = { git = "https://github.com/aptos-labs/aptos-core.git", rev = "mainnet", subdir = "aptos-move/framework/aptos-framework" }

@@ -8,8 +8,7 @@ import { AccountInfo } from "@/components/AccountInfo";
 import { TransferAPT } from "@/components/TransferAPT";
 import { WalletSelector } from "../frontend/components/WalletSelector";
 import { CreateCollection } from "./components/CreateCollection";
-import { BatchMintNFTs } from "./components/BatchMintNFTs";
-import  {MintNft} from "./components/MintNFT";
+
 function App() {
   const { connected } = useWallet();
 
@@ -26,13 +25,19 @@ function App() {
             <WalletDetails />
             <NetworkInfo />
             </CardContent>
-            <CreateCollection />
+           
             <CardContent className="flex flex-col gap-10 pt-6">
            
               <AccountInfo />
               <br />
+              <section className="p-4">
               <h4>Share assets to your friends & colleauges</h4>
               <TransferAPT />
+
+              <br />
+              <CreateCollection />
+              </section>
+             
        
               
              

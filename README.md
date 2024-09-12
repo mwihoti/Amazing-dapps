@@ -1,17 +1,19 @@
-## Amazing-dapps Aptos Dapp 
-
-Amazing-dappses is a simple dapp infrastructure and a simple wallet info implementation, transfer APT.
-
+## Amazing_Dapps share
+Amazing_Dapps Share is a simple decentralized application (dApp) infrastructure built on the Aptos blockchain. It provides basic wallet functionalities like wallet information, account details, APT (Aptos Coin) transfer, and the ability to create NFT collections.
 
 
 ## Amazing-dapps provides:
 
-- **Folder structure** - folder  with a `frontend` and `contract` folders.
-- **Dapp infrastructure** - All required dependencies a dapp needs to start building on the Aptos network.
-- **Wallet Info implementation** - `WalletInfo` component to  read a connected Wallet info.
-- **Trasnfer APT implementation** - `transfer` components to send APT to an address.
-- **Fetch APT Transer** - 
-
+- Wallet Integration: Implements the WalletInfo component to connect and display
+- wallet details using the Aptos Wallet Adapter.
+- APT Transfer: A simple TransferAPT component that allows users to send APT 
+- tokens to any address on the Aptos network.
+- Show Transfer  History : Displays the transfer history of the connected wallet.
+- Create NFT Collection: Allows users to create an NFT collection directly from 
+- the dApp using the CreateCollection component.
+- Network Information: Displays details about the connected network such as 
+- Testnet or Mainnet.
+- Account Information: Shows information about the connected Aptos account, including account address and balance.
 ## What tools the Amazing-dapps uses?
 
 - React framework

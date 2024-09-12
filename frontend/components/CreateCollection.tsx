@@ -13,13 +13,12 @@ export function CreateCollection() {
 
   const [name, setName] = useState<string>();
   const [description, setDescription] = useState<string>();
-  const [uri, setUri] = useState<string>();
-  const [maxSupply, setMaxSupply] = useState<number>();
+  
   const [transactions, setTransactions] = useState<any[]>([]);
 
   
   const onClickCreate = async () => {
-    if (!account || !name || !description || !uri || !maxSupply) {
+    if (!account || !name || !description) {
       toast({
         variant: "destructive",
         title: "Error",
@@ -33,9 +32,7 @@ export function CreateCollection() {
         createCollection({
           creator_addr: account.address,
           name, 
-          description,         
-          uri,
-          maxSupply,
+          description,
         }),
       );
       const executedTransaction = await aptosClient().waitForTransaction({
@@ -85,15 +82,11 @@ export function CreateCollection() {
         <label htmlFor="description">Description</label>
         <Input disabled={!account} placeholder="Collection Description" onChange={(e) => setDescription(e.target.value)} />
 
-        <label htmlFor="uri">URI</label>
-        <Input disabled={!account} placeholder="Collection URI" onChange={(e) => setUri(e.target.value)} />
-
-        <label htmlFor="maxSupply">Max Supply</label>
-        <Input disabled={!account} placeholder="Max Supply" type="number" onChange={(e) => setMaxSupply(parseInt(e.target.value))} />
+       
       </div>
 
       <Button
-        disabled={!account || !name || !description || !uri || !maxSupply}
+        disabled={!account || !name || !description }
         onClick={onClickCreate}
         className="bg-teal-400 hover:bg-lime-900 text-black text-lg"
       >
