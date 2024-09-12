@@ -8,6 +8,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { getAccountAPTBalance } from "@/view-functions/getAccountBalance";
 import { transferAPT } from "@/entry-functions/transferAPT";
+import { Link } from "lucide-react";
 
 export function TransferAPT() {
   const { account, signAndSubmitTransaction } = useWallet();
@@ -127,6 +128,10 @@ export function TransferAPT() {
                 <span className="font-semibold">Tx Hash:</span> {tx.hash ? tx.hash.toString() : "N/A"} <br />
                 <span className="font-semibold">Status:</span> {tx.success ? "Success" : "Failed"} <br />
                 <span className="font-semibold">TimeStamp:</span> {tx.timestamp ? new Date(tx.timestamp / 1000).toLocaleString() : "N/A"}
+                <Link
+                  href={`https://explorer.aptoslabs.com/account/${account?.address}?network=testnet`}
+                  target="_blank"
+                ></Link>
               </li>
             ))}
           </ul>

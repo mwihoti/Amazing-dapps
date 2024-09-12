@@ -17,6 +17,7 @@ export function CreateCollection() {
   const [maxSupply, setMaxSupply] = useState<number>();
   const [transactions, setTransactions] = useState<any[]>([]);
 
+  
   const onClickCreate = async () => {
     if (!account || !name || !description || !uri || !maxSupply) {
       toast({
@@ -99,7 +100,7 @@ export function CreateCollection() {
         Create Collection
       </Button>
 
-      <div className="mt-4">
+     {/* <div className="mt-4">
         <h4 className="text-lg font-medium">Transaction History:</h4>
         {transactions.length > 0 ? (
           <ul className="mt-2 space-y-2">
@@ -114,7 +115,7 @@ export function CreateCollection() {
         ) : (
           <p>No transactions yet</p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 }

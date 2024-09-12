@@ -77,7 +77,14 @@ module nftCollection_addr:: nftcollection {
             mint_fee_collector_addr: signer::address_of(sender),
         });
     }
-
+    public entry fun create_collection(
+        creator: &signer, 
+        name: String, 
+        description: String, 
+        uri: String, 
+        max_supply: u64
+    )
+    
     /// Function to mint a new nft
     fun mint_nft_internal(
         sender_addr: address,
