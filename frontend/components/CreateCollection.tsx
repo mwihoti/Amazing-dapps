@@ -14,7 +14,7 @@ export function CreateCollection() {
   const [name, setName] = useState<string>();
   const [description, setDescription] = useState<string>();
   
-  const [transactions, setTransactions] = useState<any[]>([]);
+  const {setTransactions} = useState<any[]>([]);
 
   
   const onClickCreate = async () => {
@@ -28,6 +28,13 @@ export function CreateCollection() {
     }
 
     try {
+      const createCollectionArgs: CreateCollectionArguments = {
+        creator_addr: 'creator-address',
+        name: 'Collection Name',
+        description: 'Collection Description',
+        uri: 'http://example.com',  // Add the 'uri' property
+        maxSupply: 1000             // Add the 'maxSupply' property
+      };
       const committedTransaction = await signAndSubmitTransaction(
         createCollection({
           creator_addr: account.address,

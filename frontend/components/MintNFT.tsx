@@ -8,7 +8,7 @@ import { toast } from "@/components/ui/use-toast";
 import { aptosClient } from "@/utils/aptosClient";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input"
-import { mintNFT } from '@/entry-functions/nftCollection';
+
 import { InputTransactionData } from "@aptos-labs/wallet-adapter-react";
 export function MintNft() {
     const { account, signAndSubmitTransaction } = useWallet();
